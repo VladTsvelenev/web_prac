@@ -1,4 +1,5 @@
 package ru.web.tsvelenev.WEB.models;
+
 import lombok.*;
 import jakarta.persistence.*;
 
@@ -10,17 +11,27 @@ import jakarta.persistence.*;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class PerformanceActor {
+public class PerformanceActor implements CommonEntity<PerformanceActorId> {
     @EmbeddedId
     private PerformanceActorId id;
 
     @ManyToOne
     @MapsId("performanceId")
+    @NonNull
     private Performance performance;
 
     @ManyToOne
     @MapsId("actorId")
+    @NonNull
     private Actor actor;
 
-    // Геттеры и сеттеры
+    @Override
+    public PerformanceActorId getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(PerformanceActorId id) {
+        this.id = id;
+    }
 }

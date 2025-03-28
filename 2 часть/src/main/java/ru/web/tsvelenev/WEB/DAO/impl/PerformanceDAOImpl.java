@@ -2,12 +2,10 @@ package ru.web.tsvelenev.WEB.DAO.impl;
 
 import jakarta.persistence.criteria.*;
 import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.web.tsvelenev.WEB.DAO.PerformanceDAO;
 import ru.web.tsvelenev.WEB.models.Performance;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -17,83 +15,78 @@ public class PerformanceDAOImpl extends CommonDAOImpl<Performance, Long> impleme
         super(Performance.class);
     }
 
-    @Autowired
-    private jakarta.persistence.EntityManager entityManager;
-
     @Override
-    public List<Performance> getAllPerformancesByTitle(String title) {
-        try (Session session = entityManager.unwrap(Session.class)) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Performance> criteriaQuery = builder.createQuery(Performance.class);
-            Root<Performance> root = criteriaQuery.from(Performance.class);
+    public List<Performance> getByTitle(String title) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Performance> cq = cb.createQuery(Performance.class);
+            Root<Performance> root = cq.from(Performance.class);
 
-            criteriaQuery.select(root).where(builder.equal(root.get("title"), title));
-            return session.createQuery(criteriaQuery).getResultList();
+            cq.select(root).where(cb.equal(root.get("title"), title));
+            return session.createQuery(cq).getResultList();
         }
     }
 
     @Override
-    public Performance getSinglePerformanceByTitle(String title) {
-        List<Performance> performances = getAllPerformancesByTitle(title);
-        return performances.isEmpty() ? null : performances.get(0);
-    }
+    public Performance getSingleByTitle(String title) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Performance> cq = cb.createQuery(Performance.class);
+            Root<Performance> root = cq.from(Performance.class);
 
-    @Override
-    public List<Performance> getPerformancesByDirector(Long directorId) {
-        try (Session session = entityManager.unwrap(Session.class)) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Performance> criteriaQuery = builder.createQuery(Performance.class);
-            Root<Performance> root = criteriaQuery.from(Performance.class);
-
-            criteriaQuery.select(root).where(builder.equal(root.get("director").get("id"), directorId));
-            return session.createQuery(criteriaQuery).getResultList();
+            cq.select(root).where(cb.equal(root.get("title"), title));
+            return session.createQuery(cq).setMaxResults(1).uniqueResult();
         }
     }
 
     @Override
-    public List<Performance> getPerformancesByHall(Long hallId) {
-        try (Session session = entityManager.unwrap(Session.class)) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Performance> criteriaQuery = builder.createQuery(Performance.class);
-            Root<Performance> root = criteriaQuery.from(Performance.class);
+    public List<Performance> getByDirectorId(Long directorId) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Performance> cq = cb.createQuery(Performance.class);
+            Root<Performance> root = cq.from(Performance.class);
 
-            criteriaQuery.select(root).where(builder.equal(root.get("hall").get("id"), hallId));
-            return session.createQuery(criteriaQuery).getResultList();
+            cq.select(root).where(cb.equal(root.get("director").get("id"), directorId));
+            return session.createQuery(cq).getResultList();
         }
     }
 
     @Override
-    public List<Performance> getByFilter(Filter filter) {
-        try (Session session = entityManager.unwrap(Session.class)) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Performance> criteriaQuery = builder.createQuery(Performance.class);
-            Root<Performance> root = criteriaQuery.from(Performance.class);
+    public List<Performance> getByHallId(Long hallId) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Performance> cq = cb.createQuery(Performance.class);
+            Root<Performance> root = cq.from(Performance.class);
 
-            List<Predicate> predicates = new ArrayList<>();
+            cq.select(root).where(cb.equal(root.get("hall").get("id"), hallId));
+            return session.createQuery(cq).getResultList();
+        }
+    }
 
-            if (filter.getTitle() != null) {
-                predicates.add(builder.like(root.get("title"), "%" + filter.getTitle() + "%"));
-            }
-            if (filter.getDirectorId() != null) {
-                predicates.add(builder.equal(root.get("director").get("id"), filter.getDirectorId()));
-            }
-            if (filter.getHallId() != null) {
-                predicates.add(builder.equal(root.get("hall").get("id"), filter.getHallId()));
-            }
-            if (filter.getMinDuration() != null) {
-                predicates.add(builder.greaterThanOrEqualTo(
-                        root.get("duration"), filter.getMinDuration()));
-            }
-            if (filter.getMaxDuration() != null) {
-                predicates.add(builder.lessThanOrEqualTo(
-                        root.get("duration"), filter.getMaxDuration()));
-            }
+    @Override
+    public List<Performance> getByTitleContaining(String titlePart) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Performance> cq = cb.createQuery(Performance.class);
+            Root<Performance> root = cq.from(Performance.class);
 
-            if (!predicates.isEmpty()) {
-                criteriaQuery.where(predicates.toArray(new Predicate[0]));
-            }
+            cq.select(root).where(cb.like(root.get("title"), "%" + titlePart + "%"));
+            return session.createQuery(cq).getResultList();
+        }
+    }
 
-            return session.createQuery(criteriaQuery).getResultList();
+    @Override
+    public List<Performance> getByDurationBetween(Integer minDuration, Integer maxDuration) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Performance> cq = cb.createQuery(Performance.class);
+            Root<Performance> root = cq.from(Performance.class);
+
+            Predicate minPredicate = cb.ge(root.get("duration"), minDuration);
+            Predicate maxPredicate = cb.le(root.get("duration"), maxDuration);
+            cq.select(root).where(cb.and(minPredicate, maxPredicate));
+
+            return session.createQuery(cq).getResultList();
         }
     }
 }

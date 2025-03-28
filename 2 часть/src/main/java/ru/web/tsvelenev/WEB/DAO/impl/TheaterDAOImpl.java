@@ -1,16 +1,11 @@
 package ru.web.tsvelenev.WEB.DAO.impl;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.web.tsvelenev.WEB.DAO.TheaterDAO;
 import ru.web.tsvelenev.WEB.models.Theater;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -20,48 +15,66 @@ public class TheaterDAOImpl extends CommonDAOImpl<Theater, Long> implements Thea
         super(Theater.class);
     }
 
-    @Autowired
-    private jakarta.persistence.EntityManager entityManager;
-
     @Override
-    public List<Theater> getAllTheatersByName(String theaterName) {
-        try (Session session = entityManager.unwrap(Session.class)) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Theater> criteriaQuery = builder.createQuery(Theater.class);
-            Root<Theater> root = criteriaQuery.from(Theater.class);
+    public List<Theater> getByName(String name) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Theater> cq = cb.createQuery(Theater.class);
+            Root<Theater> root = cq.from(Theater.class);
 
-            criteriaQuery.select(root).where(builder.equal(root.get("name"), theaterName));
-            return session.createQuery(criteriaQuery).getResultList();
+            cq.select(root).where(cb.equal(root.get("name"), name));
+            return session.createQuery(cq).getResultList();
         }
     }
 
     @Override
-    public Theater getSingleTheaterByName(String theaterName) {
-        List<Theater> theaters = getAllTheatersByName(theaterName);
-        return theaters.isEmpty() ? null : theaters.get(0);
+    public Theater getSingleByName(String name) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Theater> cq = cb.createQuery(Theater.class);
+            Root<Theater> root = cq.from(Theater.class);
+
+            cq.select(root).where(cb.equal(root.get("name"), name));
+            return session.createQuery(cq).setMaxResults(1).uniqueResult();
+        }
     }
 
     @Override
-    public List<Theater> getByFilter(Filter filter) {
-        try (Session session = entityManager.unwrap(Session.class)) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Theater> criteriaQuery = builder.createQuery(Theater.class);
-            Root<Theater> root = criteriaQuery.from(Theater.class);
+    public List<Theater> getByNameContaining(String namePart) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Theater> cq = cb.createQuery(Theater.class);
+            Root<Theater> root = cq.from(Theater.class);
 
-            List<Predicate> predicates = new ArrayList<>();
+            cq.select(root).where(cb.like(root.get("name"), "%" + namePart + "%"));
+            return session.createQuery(cq).getResultList();
+        }
+    }
 
-            if (filter.getName() != null) {
-                predicates.add(builder.like(root.get("name"), "%" + filter.getName() + "%"));
-            }
-            if (filter.getAddress() != null) {
-                predicates.add(builder.like(root.get("address"), "%" + filter.getAddress() + "%"));
-            }
+    @Override
+    public List<Theater> getByAddressContaining(String addressPart) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Theater> cq = cb.createQuery(Theater.class);
+            Root<Theater> root = cq.from(Theater.class);
 
-            if (!predicates.isEmpty()) {
-                criteriaQuery.where(predicates.toArray(new Predicate[0]));
-            }
+            cq.select(root).where(cb.like(root.get("address"), "%" + addressPart + "%"));
+            return session.createQuery(cq).getResultList();
+        }
+    }
 
-            return session.createQuery(criteriaQuery).getResultList();
+    @Override
+    public List<Theater> getByNameAndAddress(String name, String address) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Theater> cq = cb.createQuery(Theater.class);
+            Root<Theater> root = cq.from(Theater.class);
+
+            Predicate namePredicate = cb.like(root.get("name"), "%" + name + "%");
+            Predicate addressPredicate = cb.like(root.get("address"), "%" + address + "%");
+            cq.select(root).where(cb.and(namePredicate, addressPredicate));
+
+            return session.createQuery(cq).getResultList();
         }
     }
 }

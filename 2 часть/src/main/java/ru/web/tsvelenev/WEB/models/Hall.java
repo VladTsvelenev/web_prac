@@ -20,8 +20,9 @@ public class Hall implements CommonEntity<Long> {
     @NonNull
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "theater_id", nullable = false)
     @NonNull
+    @ToString.Exclude
     private Theater theater;
 }

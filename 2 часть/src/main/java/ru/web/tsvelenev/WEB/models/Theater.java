@@ -1,28 +1,28 @@
 package ru.web.tsvelenev.WEB.models;
+
 import lombok.*;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "theater")
-@Getter
+@Getter // Оставляем только необходимые аннотации
 @Setter
-@ToString
 @NoArgsConstructor
-@RequiredArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor // Заменяем @RequiredArgsConstructor
 public class Theater implements CommonEntity<Long> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    @NonNull
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "address")
     private String address;
-
-    @Column(name = "info")
     private String info;
+
+    @OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private List<Hall> halls;
 }
