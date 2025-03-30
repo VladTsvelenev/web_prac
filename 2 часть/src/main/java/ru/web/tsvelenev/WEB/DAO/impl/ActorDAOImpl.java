@@ -42,23 +42,17 @@ public class ActorDAOImpl extends CommonDAOImpl<Actor, Long> implements ActorDAO
 
     @Override
     public Actor getSingleActorByName(String actorName) {
-        List<Actor> actors = findByCriteria(actorName, null);
-        return actors.isEmpty() ? null : actors.get(0);
-    }
-
-    @Override
-    public List<Actor> findTopActors(int limit) {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Actor> query = builder.createQuery(Actor.class);
             Root<Actor> root = query.from(Actor.class);
 
-            query.select(root).orderBy(builder.desc(root.get("popularity"))); // предполагается наличие поля popularity
+            query.select(root)
+                    .where(builder.equal(root.get("name"), actorName));
 
-            return session.createQuery(query).setMaxResults(limit).getResultList();
+            return session.createQuery(query).setMaxResults(1).uniqueResult();
         }
     }
-
     private String likeExpr(String param) {
         return "%" + param + "%";
     }

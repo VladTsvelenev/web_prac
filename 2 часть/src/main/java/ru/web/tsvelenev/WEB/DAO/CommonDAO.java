@@ -1,6 +1,7 @@
 package ru.web.tsvelenev.WEB.DAO;
 
 import ru.web.tsvelenev.WEB.models.CommonEntity;
+import ru.web.tsvelenev.WEB.models.Theater;
 
 import java.util.Collection;
 
@@ -9,7 +10,7 @@ public interface CommonDAO<T extends CommonEntity<ID>, ID> {
 
     Collection<T> getAll();
 
-    void save(T entity);
+    Theater save(T entity);
 
     void saveCollection(Collection<T> entities);
 

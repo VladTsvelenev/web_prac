@@ -6,10 +6,8 @@ import jakarta.persistence.*;
 @Table(name = "seat_type")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @RequiredArgsConstructor
-@AllArgsConstructor
 public class SeatType implements CommonEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

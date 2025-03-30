@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import ru.web.tsvelenev.WEB.DAO.PerformanceDAO;
 import ru.web.tsvelenev.WEB.models.Performance;
 
+import java.time.Duration;
 import java.util.List;
 
 @Repository
@@ -76,16 +77,17 @@ public class PerformanceDAOImpl extends CommonDAOImpl<Performance, Long> impleme
     }
 
     @Override
-    public List<Performance> getByDurationBetween(Integer minDuration, Integer maxDuration) {
+    public List<Performance> getByDurationBetween(Integer minMinutes, Integer maxMinutes) {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Performance> cq = cb.createQuery(Performance.class);
             Root<Performance> root = cq.from(Performance.class);
 
-            Predicate minPredicate = cb.ge(root.get("duration"), minDuration);
-            Predicate maxPredicate = cb.le(root.get("duration"), maxDuration);
-            cq.select(root).where(cb.and(minPredicate, maxPredicate));
-
+            cq.select(root).where(cb.between(
+                    root.get("durationMinutes"),
+                    minMinutes,
+                    maxMinutes
+            ));
             return session.createQuery(cq).getResultList();
         }
     }

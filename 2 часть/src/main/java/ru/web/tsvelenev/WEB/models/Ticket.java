@@ -6,24 +6,28 @@ import jakarta.persistence.*;
 @Table(name = "ticket")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
-@RequiredArgsConstructor
-@AllArgsConstructor
 public class Ticket implements CommonEntity<Long> {
+    public Ticket(ShowTime showTime, Seat seat, Users user, Integer price, Boolean isSold) {
+        this.showTime = showTime;
+        this.seat = seat;
+        this.user = user;
+        this.price = price;
+        this.isSold = isSold;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ticket_seq")
+    @SequenceGenerator(name = "ticket_seq", sequenceName = "ticket_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "showtime_id", nullable = false)
-    @NonNull
+    @JoinColumn(name = "showtime_id")
     private ShowTime showTime;
 
     @ManyToOne
-    @JoinColumn(name = "seat_id", nullable = false)
-    @NonNull
+    @JoinColumn(name = "seat_id")
     private Seat seat;
 
     @ManyToOne
@@ -31,10 +35,8 @@ public class Ticket implements CommonEntity<Long> {
     private Users user;
 
     @Column(name = "price", nullable = false)
-    @NonNull
     private Integer price;
 
     @Column(name = "is_sold", nullable = false)
-    @NonNull
     private Boolean isSold;
 }

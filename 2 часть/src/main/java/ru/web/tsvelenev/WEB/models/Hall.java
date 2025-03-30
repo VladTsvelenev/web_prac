@@ -6,13 +6,12 @@ import jakarta.persistence.*;
 @Table(name = "hall")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @RequiredArgsConstructor
-@AllArgsConstructor
 public class Hall implements CommonEntity<Long> {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hall_seq")
+    @SequenceGenerator(name = "hall_seq", sequenceName = "hall_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;
 

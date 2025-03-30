@@ -6,13 +6,12 @@ import jakarta.persistence.*;
 @Table(name = "actor")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @RequiredArgsConstructor
-@AllArgsConstructor
 public class Actor implements CommonEntity<Long> {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "actor_seq")
+    @SequenceGenerator(name = "actor_seq", sequenceName = "actor_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;
 

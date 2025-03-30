@@ -7,22 +7,17 @@ import jakarta.persistence.*;
 @Table(name = "performance_actor")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
-@RequiredArgsConstructor
 @AllArgsConstructor
 public class PerformanceActor implements CommonEntity<PerformanceActorId> {
     @EmbeddedId
+    @NonNull
     private PerformanceActorId id;
 
-    @ManyToOne
-    @MapsId("performanceId")
-    @NonNull
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Performance performance;
 
-    @ManyToOne
-    @MapsId("actorId")
-    @NonNull
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Actor actor;
 
     @Override

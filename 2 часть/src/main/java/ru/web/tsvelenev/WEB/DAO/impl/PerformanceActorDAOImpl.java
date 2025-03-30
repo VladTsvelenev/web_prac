@@ -17,65 +17,62 @@ public class PerformanceActorDAOImpl extends CommonDAOImpl<PerformanceActor, Per
         super(PerformanceActor.class);
     }
 
-    @Autowired
-    private jakarta.persistence.EntityManager entityManager;
-
     @Override
-    public List<PerformanceActor> getByPerformance(Performance performance) {
-        try (Session session = entityManager.unwrap(Session.class)) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<PerformanceActor> criteriaQuery = builder.createQuery(PerformanceActor.class);
-            Root<PerformanceActor> root = criteriaQuery.from(PerformanceActor.class);
+    public List<PerformanceActor> findByPerformanceId(Long performanceId) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<PerformanceActor> cq = cb.createQuery(PerformanceActor.class);
+            Root<PerformanceActor> root = cq.from(PerformanceActor.class);
 
-            criteriaQuery.select(root)
-                    .where(builder.equal(root.get("performance"), performance));
-            return session.createQuery(criteriaQuery).getResultList();
+            cq.select(root).where(cb.equal(root.get("performance").get("id"), performanceId));
+            return session.createQuery(cq).getResultList();
         }
     }
 
     @Override
-    public List<PerformanceActor> getByActor(Actor actor) {
-        try (Session session = entityManager.unwrap(Session.class)) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<PerformanceActor> criteriaQuery = builder.createQuery(PerformanceActor.class);
-            Root<PerformanceActor> root = criteriaQuery.from(PerformanceActor.class);
+    public List<PerformanceActor> findByActorId(Long actorId) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<PerformanceActor> cq = cb.createQuery(PerformanceActor.class);
+            Root<PerformanceActor> root = cq.from(PerformanceActor.class);
 
-            criteriaQuery.select(root)
-                    .where(builder.equal(root.get("actor"), actor));
-            return session.createQuery(criteriaQuery).getResultList();
+            cq.select(root).where(cb.equal(root.get("actor").get("id"), actorId));
+            return session.createQuery(cq).getResultList();
         }
     }
 
     @Override
     public boolean existsByPerformanceAndActor(Performance performance, Actor actor) {
-        try (Session session = entityManager.unwrap(Session.class)) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
-            Root<PerformanceActor> root = criteriaQuery.from(PerformanceActor.class);
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+            Root<PerformanceActor> root = cq.from(PerformanceActor.class);
 
-            criteriaQuery.select(builder.count(root))
-                    .where(builder.and(
-                            builder.equal(root.get("performance"), performance),
-                            builder.equal(root.get("actor"), actor)
+            cq.select(cb.count(root))
+                    .where(cb.and(
+                            cb.equal(root.get("performance"), performance),
+                            cb.equal(root.get("actor"), actor)
                     ));
-
-            return session.createQuery(criteriaQuery).getSingleResult() > 0;
+            return session.createQuery(cq).getSingleResult() > 0;
         }
     }
 
     @Override
     public void deleteByPerformanceAndActor(Performance performance, Actor actor) {
-        try (Session session = entityManager.unwrap(Session.class)) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaDelete<PerformanceActor> delete = builder.createCriteriaDelete(PerformanceActor.class);
-            Root<PerformanceActor> root = delete.from(PerformanceActor.class);
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
 
-            delete.where(builder.and(
-                    builder.equal(root.get("performance"), performance),
-                    builder.equal(root.get("actor"), actor)
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaDelete<PerformanceActor> cd = cb.createCriteriaDelete(PerformanceActor.class);
+            Root<PerformanceActor> root = cd.from(PerformanceActor.class);
+
+            cd.where(cb.and(
+                    cb.equal(root.get("performance"), performance),
+                    cb.equal(root.get("actor"), actor)
             ));
 
-            session.createMutationQuery(delete).executeUpdate();
+            session.createMutationQuery(cd).executeUpdate();
+            session.getTransaction().commit();
         }
     }
 }

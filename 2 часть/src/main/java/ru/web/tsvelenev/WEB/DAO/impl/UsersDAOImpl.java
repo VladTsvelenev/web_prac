@@ -22,10 +22,11 @@ public class UsersDAOImpl extends CommonDAOImpl<Users, Long> implements UsersDAO
             CriteriaQuery<Users> cq = cb.createQuery(Users.class);
             Root<Users> root = cq.from(Users.class);
 
+            // Create a native SQL fragment for JSON extraction
             Expression<String> jsonExtract = cb.function(
                     "jsonb_extract_path_text",
                     String.class,
-                    root.get("userInfo"),
+                    cb.function("to_jsonb", String.class, root.get("userInfo")),
                     cb.literal(fieldName)
             );
 

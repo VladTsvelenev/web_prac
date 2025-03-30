@@ -8,8 +8,8 @@ import ru.web.tsvelenev.WEB.models.PerformanceActorId;
 import java.util.List;
 
 public interface PerformanceActorDAO extends CommonDAO<PerformanceActor, PerformanceActorId> {
-    List<PerformanceActor> getByPerformance(Performance performance);
-    List<PerformanceActor> getByActor(Actor actor);
+    List<PerformanceActor> findByPerformanceId(Long performanceId);
+    List<PerformanceActor> findByActorId(Long actorId);
     boolean existsByPerformanceAndActor(Performance performance, Actor actor);
     void deleteByPerformanceAndActor(Performance performance, Actor actor);
 }

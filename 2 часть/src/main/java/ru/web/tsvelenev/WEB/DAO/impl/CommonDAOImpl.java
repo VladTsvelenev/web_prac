@@ -6,8 +6,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.web.tsvelenev.WEB.DAO.CommonDAO;
 import ru.web.tsvelenev.WEB.models.CommonEntity;
+import ru.web.tsvelenev.WEB.models.Theater;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -45,26 +47,22 @@ public abstract class CommonDAOImpl<T extends CommonEntity<ID>, ID extends Seria
     }
 
     @Override
-    public void save(T entity) {
-        try (Session session = sessionFactory.openSession()) {
-            if (entity.getId() != null) {
-                entity.setId(null);
-            }
-            session.beginTransaction();
-            session.saveOrUpdate(entity);
-            session.getTransaction().commit();
-        }
+    @Transactional
+    public Theater save(T entity) {
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(entity);
+        session.flush(); // Немедленная синхронизация с БД
+        return null;
     }
 
     @Override
+    @Transactional
     public void saveCollection(Collection<T> entities) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            for (T entity : entities) {
-                this.save(entity);
-            }
-            session.getTransaction().commit();
+        Session session = sessionFactory.getCurrentSession();
+        for (T entity : entities) {
+            session.persist(entity);
         }
+        session.flush();
     }
 
     @Override

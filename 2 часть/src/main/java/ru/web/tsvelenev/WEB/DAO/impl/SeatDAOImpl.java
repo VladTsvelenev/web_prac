@@ -1,3 +1,4 @@
+// SeatDAOImpl.java
 package ru.web.tsvelenev.WEB.DAO.impl;
 
 import jakarta.persistence.criteria.*;
@@ -64,7 +65,7 @@ public class SeatDAOImpl extends CommonDAOImpl<Seat, Long> implements SeatDAO {
     }
 
     @Override
-    public List<Seat> getByHallAndRow(Long hallId, Integer rowNumber) {
+    public Seat getByHallAndRowAndSeat(Long hallId, Integer rowNumber, Integer seatNumber) {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Seat> cq = cb.createQuery(Seat.class);
@@ -72,24 +73,10 @@ public class SeatDAOImpl extends CommonDAOImpl<Seat, Long> implements SeatDAO {
 
             Predicate hallPredicate = cb.equal(root.get("hall").get("id"), hallId);
             Predicate rowPredicate = cb.equal(root.get("rowNumber"), rowNumber);
-            cq.select(root).where(cb.and(hallPredicate, rowPredicate));
+            Predicate seatPredicate = cb.equal(root.get("seatNumber"), seatNumber);
 
-            return session.createQuery(cq).getResultList();
-        }
-    }
-
-    @Override
-    public List<Seat> getByHallAndType(Long hallId, Long seatTypeId) {
-        try (Session session = sessionFactory.openSession()) {
-            CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<Seat> cq = cb.createQuery(Seat.class);
-            Root<Seat> root = cq.from(Seat.class);
-
-            Predicate hallPredicate = cb.equal(root.get("hall").get("id"), hallId);
-            Predicate typePredicate = cb.equal(root.get("seatType").get("id"), seatTypeId);
-            cq.select(root).where(cb.and(hallPredicate, typePredicate));
-
-            return session.createQuery(cq).getResultList();
+            cq.select(root).where(cb.and(hallPredicate, rowPredicate, seatPredicate));
+            return session.createQuery(cq).setMaxResults(1).uniqueResult();
         }
     }
 }
