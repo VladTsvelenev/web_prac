@@ -6,6 +6,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
+import ru.web.tsvelenev.WEB.DAO.impl.SeatDAOImpl;
 import ru.web.tsvelenev.WEB.models.Hall;
 import ru.web.tsvelenev.WEB.models.Seat;
 import ru.web.tsvelenev.WEB.models.SeatType;
@@ -14,7 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@SpringBootTest(properties = "spring.main.lazy-initialization=true")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestPropertySource(locations="classpath:application.properties")
 public class SeatDAOTest {
@@ -90,6 +91,7 @@ public class SeatDAOTest {
 
     @BeforeEach
     void beforeEach() {
+        // Очистка базы перед каждым тестом
         cleanup();
 
         // Создаем типы мест (без цены)
@@ -109,6 +111,8 @@ public class SeatDAOTest {
         vipHall = new Hall();
         vipHall.setName("VIP Hall");
         hallDAO.save(vipHall);
+
+        // Создаем места для mainHall (10 стандартных мест: 2 ряда по 5 мест)
         for (int row = 1; row <= 2; row++) {
             for (int num = 1; num <= 5; num++) {
                 Seat seat = new Seat(mainHall, standardType, row, num);
@@ -116,6 +120,7 @@ public class SeatDAOTest {
             }
         }
 
+        // Создаем VIP места для vipHall (5 мест в одном ряду)
         for (int num = 1; num <= 5; num++) {
             Seat seat = new Seat(vipHall, vipType, 1, num);
             seatDAO.save(seat);
@@ -127,6 +132,7 @@ public class SeatDAOTest {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
+            // Удаляем данные из всех таблиц
             session.createNativeQuery("DELETE FROM seat").executeUpdate();
             session.createNativeQuery("DELETE FROM hall").executeUpdate();
             session.createNativeQuery("DELETE FROM seattype").executeUpdate();
