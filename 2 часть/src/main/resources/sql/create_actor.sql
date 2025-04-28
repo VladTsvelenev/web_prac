@@ -1,6 +1,0 @@
-DROP TABLE IF EXISTS Actor;
-
-CREATE TABLE Actor (
-    id INT PRIMARY KEY,
-    name VARCHAR(255)
-);

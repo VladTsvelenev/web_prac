@@ -1,6 +1,0 @@
-DROP TABLE IF EXISTS SeatType;
-
-CREATE TABLE SeatType (
-    id INT PRIMARY KEY,
-    name VARCHAR(255)
-);
