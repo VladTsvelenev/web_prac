@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-header {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-weight: 600;
+        }
+        .logo {
+            height: 120px;
+            margin: 5px;
+        }
+    </style>
+    <title>Добавить Театр - Театральная система</title>
+</head>
+<body>
+
+<header class="d-flex justify-content-between align-items-center">
+    <a href="/">
+        <img src="/images/logo.png" alt="Театральный логотип" class="logo">
+    </a>
+    <div class="auth-buttons" th:if="${session.username} == null">
+        <a href="/login" class="btn btn-outline-primary mr-2">Вход</a>
+        <a href="/register" class="btn btn-primary">Регистрация</a>
+    </div>
+    <div class="auth-buttons" th:unless="${session.username} == null">
+        <span class="user-greeting">Привет, <span th:text="${session.username}"></span>!</span>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit" class="btn btn-outline-danger">Выход</button>
+        </form>
+    </div>
+</header>
+
+<div class="container">
+    <div class="form-container">
+        <h2 class="form-header">Добавить новый театр</h2>
+        <form action="/theaters/add" method="post">
+            <div class="form-group">
+                <label for="name">Название театра</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Адрес театра</label>
+                <input type="text" class="form-control" id="address" name="address">
+            </div>
+
+            <div class="form-group">
+                <label for="info">Описание / информация</label>
+                <textarea class="form-control" id="info" name="info" rows="4"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Залы театра</label>
+                <div id="halls-container">
+                    <div class="hall-group">
+                        <input type="text" class="form-control mb-2" name="hallsName" placeholder="Название зала" required>
+                        <input type="number" class="form-control mb-2" name="hallsSeatCount" placeholder="Количество мест" required>
+                        <hr>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary mt-2" onclick="addHall()">Добавить ещё зал</button>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Добавить театр</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    let hallIndex = 1;
+    function addHall() {
+        const container = document.getElementById('halls-container');
+        const newHall = document.createElement('div');
+        newHall.className = "hall-group";
+        newHall.innerHTML = `
+            <input type="text" class="form-control mb-2" name="hallsName" placeholder="Название зала" required>
+            <input type="number" class="form-control mb-2" name="hallsSeatCount" placeholder="Количество мест" required>
+            <hr>
+        `;
+        container.appendChild(newHall);
+        hallIndex++;
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

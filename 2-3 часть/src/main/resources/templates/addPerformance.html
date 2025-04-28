@@ -1,0 +1,160 @@
+    <!DOCTYPE HTML>
+    <html xmlns:th="http://www.thymeleaf.org" lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Добавить спектакль - Театральная система</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            .form-container {
+                max-width: 700px;
+                margin: 50px auto;
+                padding: 20px;
+                background-color: #f8f9fa;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            .form-header { text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 20px; }
+            .form-group label { font-weight: 600; }
+            .logo { height: 120px; margin: 5px; }
+            .select2-container { width: 100% !important; }
+        </style>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    </head>
+    <body>
+
+    <header class="d-flex justify-content-between align-items-center">
+        <a href="/">
+            <img src="/images/logo.png" alt="Театральный логотип" class="logo">
+        </a>
+        <div class="auth-buttons" th:if="${session.username} == null">
+            <a href="/login" class="btn btn-outline-primary mr-2">Вход</a>
+            <a href="/register" class="btn btn-primary">Регистрация</a>
+        </div>
+        <div class="auth-buttons" th:unless="${session.username} == null">
+            <span class="user-greeting">Привет, <span th:text="${session.username}"></span>!</span>
+            <form th:action="@{/logout}" method="post" style="display: inline;">
+                <button type="submit" class="btn btn-outline-danger">Выход</button>
+            </form>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="form-container">
+            <h2 class="form-header">Добавить новый спектакль</h2>
+
+            <form action="/performances/add" method="post">
+                <div class="form-group">
+                    <label for="title">Название спектакля</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+
+                <!-- Выбор театра -->
+                <div class="form-group">
+                    <label for="theater">Театр</label>
+                    <select class="form-control" id="theater" name="theaterId" required>
+                        <option value="">Выберите театр</option>
+                        <option th:each="theater : ${theaters}"
+                                th:value="${theater.id}"
+                                th:text="${theater.name}">
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Выбор зала -->
+                <div class="form-group">
+                    <label for="hall">Зал</label>
+                    <select class="form-control" id="hall" name="hallId" required>
+                        <option value="">Выберите зал</option>
+                        <option th:each="hall : ${halls}"
+                                th:value="${hall.id}"
+                                th:data-theater-id="${hall.theater.id}"
+                                th:text="${hall.name}">
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Выбор режиссера -->
+                <select class="form-control" id="director" name="directorId" required>
+                    <option value="">Выберите режиссёра</option>
+                    <option th:each="director : ${directors}"
+                            th:value="${director.id}"
+                            th:text="${director.name}">
+                    </option>
+                </select>
+
+                <!-- Выбор актеров -->
+                <div class="form-group">
+                    <label for="actors">Актеры (можно выбрать несколько)</label>
+                    <select class="form-control select2" id="actors" name="actorIds" multiple="multiple">
+                        <option th:each="actor : ${actors}"
+                                th:value="${actor.id}"
+                                th:text="${actor.name}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="duration">Продолжительность (мин)</label>
+                    <input type="number" class="form-control" id="duration" name="durationMinutes" required>
+                </div>
+
+                <!-- Блок для ввода цен по типу мест -->
+                <h5 class="mt-4">Настройка цен на билеты</h5>
+                <div th:each="seatType : ${seatTypes}" class="form-group">
+                    <label th:for="'price_' + ${seatType.id}" th:text="'Цена для типа: ' + ${seatType.name}"></label>
+                    <input type="number" class="form-control" th:id="'price_' + ${seatType.id}"
+                           th:name="'prices[' + ${seatType.id} + ']'" min="0" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-4">Добавить спектакль</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h5>Генерация билетов</h5>
+        <p>После создания спектакля будут автоматически сгенерированы билеты для всех мест в зале.</p>
+
+        <div th:each="seatType : ${seatTypes}" class="form-group">
+            <label th:for="'price_' + ${seatType.id}" th:text="'Цена для ' + ${seatType.name} + ' мест:'"></label>
+            <input type="number" class="form-control" th:id="'price_' + ${seatType.id}"
+                   th:name="'prices[' + ${seatType.id} + ']'" min="0" required>
+        </div>
+    </div>
+
+    <!-- Подключаем необходимые скрипты -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/i18n/ru.js"></script>
+
+    <script>
+        // Инициализация Select2 для выбора режиссера и актеров
+        $(document).ready(function() {
+            $('.select2').select2({
+                language: "ru",
+                placeholder: "Выберите значение",
+                allowClear: true
+            });
+        });
+
+        // Динамическая фильтрация залов по выбранному театру
+        document.getElementById('theater').addEventListener('change', function () {
+            let theaterId = this.value;
+            let hallSelect = document.getElementById('hall');
+            let hallOptions = hallSelect.querySelectorAll('option');
+
+            hallOptions.forEach(function (option) {
+                if (option.value === "") {
+                    option.hidden = false; // опция "Выберите зал"
+                    option.selected = true;
+                } else if (option.getAttribute('data-theater-id') === theaterId) {
+                    option.hidden = false;
+                } else {
+                    option.hidden = true;
+                }
+            });
+        });
+    </script>
+
+    </body>
+    </html>

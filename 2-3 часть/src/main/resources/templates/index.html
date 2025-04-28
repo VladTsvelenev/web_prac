@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .theater-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .main-content {
+            background-color: #f8f9fa;
+            padding: 40px 0;
+        }
+
+        .nav-panel {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .nav-item {
+            margin: 0 15px;
+        }
+
+        .nav-link {
+            color: #333;
+            font-weight: 500;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #d4af37;
+            transform: translateY(-3px);
+        }
+
+        .logo {
+            height: 120px;
+            margin: 5px;
+        }
+
+        .auth-buttons {
+            margin: 15px;
+        }
+
+        .welcome-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            text-align: center;
+            margin: 30px 0;
+            color: #333;
+        }
+
+        .user-greeting {
+            margin-right: 15px;
+            font-weight: 500;
+        }
+    </style>
+    <title>Главная - Театральная система</title>
+</head>
+<body>
+
+<!-- Header with logo and auth buttons -->
+<header class="d-flex justify-content-between align-items-center">
+    <img src="/images/logo.png" alt="Театральный логотип" class="logo">
+    <div class="auth-buttons" th:if="${session.username} == null">
+        <a href="/login" class="btn btn-outline-primary mr-2">Вход</a>
+        <a href="/register" class="btn btn-primary">Регистрация</a>
+    </div>
+    <div class="auth-buttons" th:unless="${session.username} == null">
+        <span class="user-greeting">Привет, <span th:text="${session.username}"></span>!</span>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit" class="btn btn-outline-danger">Выход</button>
+        </form>
+    </div>
+</header>
+
+<!-- Theater image -->
+<div class="theater-image-container">
+    <img src="/images/theater-main.jpg" alt="Большой театр" class="theater-image">
+</div>
+
+<!-- Main content -->
+<div class="main-content">
+    <div class="container">
+        <!-- Navigation panel -->
+        <div class="nav-panel text-center">
+            <nav class="nav justify-content-center">
+                <div class="nav-item">
+                    <a class="nav-link" th:href="@{/theaters}">Театры</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" th:href="@{/performances}">Спектакли</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" th:href="@{/purchase-history}">История покупок</a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Welcome text -->
+        <div class="welcome-text">
+            Добро пожаловать в систему управления театральными билетами.<br>
+            Выбирайте спектакли, бронируйте места и наслаждайтесь искусством!
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-4 mt-4">
+    <div class="container">
+        <p>Театральная система &copy; 2025</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<div th:fragment="site-script">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+</div>
+
+</body>
+</html>

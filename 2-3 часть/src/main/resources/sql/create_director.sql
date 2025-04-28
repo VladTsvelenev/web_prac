@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS Director;
+
+CREATE TABLE Director (
+    id INT PRIMARY KEY,
+    name VARCHAR(255)
+);

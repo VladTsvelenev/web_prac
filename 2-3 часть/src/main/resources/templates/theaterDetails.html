@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${theater.name} + ' - Театральная система'">Детали театра</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <style>
+        .theater-details {
+            margin-top: 40px;
+        }
+
+        .back-button {
+            margin-top: 20px;
+        }
+
+        .theater-info {
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .theater-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .theater-info p {
+            font-size: 16px;
+            color: #444;
+        }
+        .logo {
+            height: 120px;
+            margin: 5px;
+        }
+
+        .auth-buttons {
+            margin: 15px;
+        }
+    </style>
+</head>
+<body>
+<header class="d-flex justify-content-between align-items-center">
+    <a href="/">
+        <img src="/images/logo.png" alt="Театральный логотип" class="logo">
+    </a>
+    <div class="auth-buttons" th:if="${session.username} == null">
+        <a href="/login" class="btn btn-outline-primary mr-2">Вход</a>
+        <a href="/register" class="btn btn-primary">Регистрация</a>
+    </div>
+    <div class="auth-buttons" th:unless="${session.username} == null">
+        <span class="user-greeting">Привет, <span th:text="${session.username}"></span>!</span>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit" class="btn btn-outline-danger">Выход</button>
+        </form>
+    </div>
+</header>
+
+<div class="container theater-details">
+    <div class="back-button">
+        <a href="/theaters" class="btn btn-outline-secondary">← Назад к списку театров</a>
+    </div>
+
+    <div class="theater-info mt-4">
+        <h2 th:text="${theater.name}">Название театра</h2>
+        <p><strong>Адрес:</strong> <span th:text="${theater.address ?: '—'}">Адрес</span></p>
+        <p><strong>Описание:</strong></p>
+        <p th:text="${theater.info ?: 'Нет описания'}">Описание театра...</p>
+    </div>
+
+    <div class="mt-5">
+        <h3>Спектакли в этом театре</h3>
+
+        <div th:if="${#lists.isEmpty(performances)}" class="alert alert-info mt-3">
+            В этом театре пока нет спектаклей.
+        </div>
+
+        <table th:if="${!#lists.isEmpty(performances)}" class="table table-striped mt-3">
+            <thead class="thead-light">
+            <tr>
+                <th>Название</th>
+                <th>Зал</th>
+                <th>Режиссёр</th>
+                <th>Продолжительность</th>
+                <th>Подробнее</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="performance : ${performances}">
+                <td th:text="${performance.title}">Название</td>
+                <td th:text="${performance.hall.name}">Зал</td>
+                <td th:text="${performance.director.name}">Режиссёр</td>
+                <td th:text="${performance.durationMinutes + ' мин'}">90 мин</td>
+                <td>
+                    <a th:href="@{/performances/{id}(id=${performance.id})}" class="btn btn-primary btn-sm">Открыть</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
