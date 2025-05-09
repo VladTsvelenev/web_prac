@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="TheaterDB@localhost">
-  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.52">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <IntrospectionStateNumber>3275</IntrospectionStateNumber>
+      <IntrospectionStateNumber>5856</IntrospectionStateNumber>
       <ServerVersion>17.2</ServerVersion>
-      <StartupTime>1743332018</StartupTime>
+      <StartupTime>1746551673</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -46,15 +46,15 @@ false Africa/Bissau
 false Africa/Blantyre
 false Africa/Brazzaville
 false Africa/Bujumbura
-false Africa/Cairo
-true Africa/Casablanca
+true Africa/Cairo
+false Africa/Casablanca
 true Africa/Ceuta
 false Africa/Conakry
 false Africa/Dakar
 false Africa/Dar_es_Salaam
 false Africa/Djibouti
 false Africa/Douala
-true Africa/El_Aaiun
+false Africa/El_Aaiun
 false Africa/Freetown
 false Africa/Gaborone
 false Africa/Harare
@@ -230,7 +230,7 @@ false America/Rio_Branco
 false America/Rosario
 true America/Santa_Isabel
 false America/Santarem
-true America/Santiago
+false America/Santiago
 false America/Santo_Domingo
 false America/Sao_Paulo
 true America/Scoresbysund
@@ -258,12 +258,12 @@ true America/Yellowknife
 false Antarctica/Casey
 false Antarctica/Davis
 false Antarctica/DumontDUrville
-true Antarctica/Macquarie
+false Antarctica/Macquarie
 false Antarctica/Mawson
-true Antarctica/McMurdo
+false Antarctica/McMurdo
 false Antarctica/Palmer
 false Antarctica/Rothera
-true Antarctica/South_Pole
+false Antarctica/South_Pole
 false Antarctica/Syowa
 true Antarctica/Troll
 false Antarctica/Vostok
@@ -298,9 +298,9 @@ false Asia/Dili
 false Asia/Dubai
 false Asia/Dushanbe
 true Asia/Famagusta
-false Asia/Gaza
+true Asia/Gaza
 false Asia/Harbin
-false Asia/Hebron
+true Asia/Hebron
 false Asia/Ho_Chi_Minh
 false Asia/Hong_Kong
 false Asia/Hovd
@@ -379,29 +379,29 @@ false Atlantic/Reykjavik
 false Atlantic/South_Georgia
 false Atlantic/St_Helena
 false Atlantic/Stanley
-true Australia/ACT
-true Australia/Adelaide
+false Australia/ACT
+false Australia/Adelaide
 false Australia/Brisbane
-true Australia/Broken_Hill
-true Australia/Canberra
-true Australia/Currie
+false Australia/Broken_Hill
+false Australia/Canberra
+false Australia/Currie
 false Australia/Darwin
 false Australia/Eucla
-true Australia/Hobart
-true Australia/LHI
+false Australia/Hobart
+false Australia/LHI
 false Australia/Lindeman
-true Australia/Lord_Howe
-true Australia/Melbourne
-true Australia/NSW
+false Australia/Lord_Howe
+false Australia/Melbourne
+false Australia/NSW
 false Australia/North
 false Australia/Perth
 false Australia/Queensland
-true Australia/South
-true Australia/Sydney
-true Australia/Tasmania
-true Australia/Victoria
+false Australia/South
+false Australia/Sydney
+false Australia/Tasmania
+false Australia/Victoria
 false Australia/West
-true Australia/Yancowinna
+false Australia/Yancowinna
 true BDST
 false BDT
 false BNT
@@ -428,7 +428,7 @@ false CHAST
 false CHUT
 false CKT
 true CLST
-true CLT
+false CLT
 false COT
 false CST
 true CST6CDT
@@ -441,13 +441,13 @@ true Canada/Newfoundland
 true Canada/Pacific
 false Canada/Saskatchewan
 false Canada/Yukon
-true Chile/Continental
-true Chile/EasterIsland
+false Chile/Continental
+false Chile/EasterIsland
 true Cuba
 false DAVT
 false DDUT
-true EASST
-true EAST
+false EASST
+false EAST
 false EAT
 true EDT
 true EEST
@@ -457,7 +457,7 @@ true EGST
 false EGT
 false EST
 true EST5EDT
-false Egypt
+true Egypt
 false Eire
 false Etc/GMT
 false Etc/GMT+0
@@ -616,7 +616,7 @@ false KRAST
 false KRAT
 false KST
 false Kwajalein
-true LHDT
+false LHDT
 false LHST
 false LIGT
 false LINT
@@ -653,8 +653,8 @@ false NOVT
 false NPT
 false NST
 false NUT
-true NZ
-true NZ-CHAT
+false NZ
+false NZ-CHAT
 true NZDT
 false NZST
 false NZT
@@ -679,11 +679,11 @@ false PWT
 true PYST
 false PYT
 false Pacific/Apia
-true Pacific/Auckland
+false Pacific/Auckland
 false Pacific/Bougainville
-true Pacific/Chatham
+false Pacific/Chatham
 false Pacific/Chuuk
-true Pacific/Easter
+false Pacific/Easter
 false Pacific/Efate
 false Pacific/Enderbury
 false Pacific/Fakaofo
@@ -704,7 +704,7 @@ false Pacific/Marquesas
 false Pacific/Midway
 false Pacific/Nauru
 false Pacific/Niue
-true Pacific/Norfolk
+false Pacific/Norfolk
 false Pacific/Noumea
 false Pacific/Pago_Pago
 false Pacific/Palau
@@ -800,7 +800,7 @@ false Zulu
 14650||10|C|G
 14650||-9223372036854775808|U|G
 14650||10|U|G</Grants>
-      <IntrospectionStateNumber>3275</IntrospectionStateNumber>
+      <IntrospectionStateNumber>5856</IntrospectionStateNumber>
       <ObjectId>33974</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4285,90 +4285,90 @@ false Zulu
     <schema id="272" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>3275</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2025-03-30.21:04:10</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>5856</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2025-05-06.21:07:25</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>532</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
     <sequence id="273" parent="272" name="actor_id_seq">
+      <DasType>bigint|0s</DasType>
       <ObjectId>34329</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>2898</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <OwnerName>Vlad</OwnerName>
     </sequence>
     <sequence id="274" parent="272" name="director_id_seq">
+      <DasType>bigint|0s</DasType>
       <ObjectId>34322</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>925</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <OwnerName>Vlad</OwnerName>
     </sequence>
     <sequence id="275" parent="272" name="hall_id_seq">
+      <DasType>bigint|0s</DasType>
       <ObjectId>34325</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>1720</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <OwnerName>Vlad</OwnerName>
     </sequence>
     <sequence id="276" parent="272" name="performance_id_seq">
+      <DasType>bigint|0s</DasType>
       <ObjectId>34328</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>2417</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <OwnerName>Vlad</OwnerName>
     </sequence>
     <sequence id="277" parent="272" name="seat_id_seq">
+      <DasType>bigint|0s</DasType>
       <ObjectId>34326</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>1721</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <OwnerName>Vlad</OwnerName>
     </sequence>
     <sequence id="278" parent="272" name="seat_type_id_seq">
+      <DasType>bigint|0s</DasType>
       <ObjectId>34212</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>867</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <OwnerName>Vlad</OwnerName>
     </sequence>
     <sequence id="279" parent="272" name="showtime_id_seq">
+      <DasType>bigint|0s</DasType>
       <ObjectId>34330</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>3062</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <OwnerName>Vlad</OwnerName>
     </sequence>
     <sequence id="280" parent="272" name="theater_id_seq">
+      <DasType>bigint|0s</DasType>
       <ObjectId>34327</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>1722</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <OwnerName>Vlad</OwnerName>
     </sequence>
     <sequence id="281" parent="272" name="ticket_id_seq">
+      <DasType>bigint|0s</DasType>
       <ObjectId>34324</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>1640</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <OwnerName>Vlad</OwnerName>
     </sequence>
     <sequence id="282" parent="272" name="users_id_seq">
+      <DasType>bigint|0s</DasType>
       <ObjectId>34323</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>1193</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <OwnerName>Vlad</OwnerName>
     </sequence>
     <table id="283" parent="272" name="actor">
@@ -4385,7 +4385,7 @@ false Zulu
     </table>
     <table id="285" parent="272" name="hall">
       <ObjectId>33982</ObjectId>
-      <StateNumber>858</StateNumber>
+      <StateNumber>5644</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
@@ -4396,34 +4396,34 @@ false Zulu
       <OwnerName>postgres</OwnerName>
     </table>
     <table id="287" parent="272" name="performance_actor">
-      <ObjectId>34178</ObjectId>
-      <StateNumber>878</StateNumber>
+      <ObjectId>50733</ObjectId>
+      <StateNumber>5655</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="288" parent="272" name="performance_showtime">
+      <ObjectId>42541</ObjectId>
+      <StateNumber>5641</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>Vlad</OwnerName>
     </table>
-    <table id="288" parent="272" name="performanceactor">
+    <table id="289" parent="272" name="performanceactor">
       <ObjectId>34037</ObjectId>
       <StateNumber>830</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="289" parent="272" name="seat">
+    <table id="290" parent="272" name="seat">
       <ObjectId>33997</ObjectId>
-      <StateNumber>866</StateNumber>
+      <StateNumber>5825</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="290" parent="272" name="seat_type">
+    <table id="291" parent="272" name="seat_type">
       <ObjectId>34213</ObjectId>
       <StateNumber>880</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>Vlad</OwnerName>
-    </table>
-    <table id="291" parent="272" name="seattype">
-      <ObjectId>33992</ObjectId>
-      <StateNumber>826</StateNumber>
-      <AccessMethodId>2</AccessMethodId>
-      <OwnerName>postgres</OwnerName>
     </table>
     <table id="292" parent="272" name="showtime">
       <ObjectId>34052</ObjectId>
@@ -4439,7 +4439,7 @@ false Zulu
     </table>
     <table id="294" parent="272" name="ticket">
       <ObjectId>34069</ObjectId>
-      <StateNumber>875</StateNumber>
+      <StateNumber>5825</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
@@ -4450,16 +4450,16 @@ false Zulu
       <OwnerName>postgres</OwnerName>
     </table>
     <column id="296" parent="283" name="id">
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>855</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
     <column id="297" parent="283" name="name">
+      <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
       <StateNumber>829</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <index id="298" parent="283" name="actor_pkey">
@@ -4479,16 +4479,16 @@ false Zulu
       <UnderlyingIndexId>34097</UnderlyingIndexId>
     </key>
     <column id="300" parent="284" name="id">
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>856</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
     <column id="301" parent="284" name="name">
+      <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
       <StateNumber>827</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <index id="302" parent="284" name="director_pkey">
@@ -4508,25 +4508,31 @@ false Zulu
       <UnderlyingIndexId>34108</UnderlyingIndexId>
     </key>
     <column id="304" parent="285" name="id">
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>857</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
     <column id="305" parent="285" name="theater_id">
+      <DasType>bigint|0s</DasType>
       <Position>2</Position>
       <StateNumber>858</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
     <column id="306" parent="285" name="name">
+      <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
       <StateNumber>824</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <foreign-key id="307" parent="285" name="hall_theater_id_fkey">
+    <column id="307" parent="285" name="seat_count">
+      <DasType>integer|0s</DasType>
+      <Position>4</Position>
+      <StateNumber>5644</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <foreign-key id="308" parent="285" name="hall_theater_id_fkey">
       <ColNames>theater_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34245</ObjectId>
@@ -4534,7 +4540,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>33975</RefTableId>
     </foreign-key>
-    <index id="308" parent="285" name="hall_pkey">
+    <index id="309" parent="285" name="hall_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34119</ObjectId>
@@ -4543,52 +4549,52 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="309" parent="285" name="hall_pkey">
+    <key id="310" parent="285" name="hall_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34120</ObjectId>
       <Primary>1</Primary>
       <StateNumber>857</StateNumber>
       <UnderlyingIndexId>34119</UnderlyingIndexId>
     </key>
-    <column id="310" parent="286" name="id">
+    <column id="311" parent="286" name="id">
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>859</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="311" parent="286" name="title">
+    <column id="312" parent="286" name="title">
+      <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
       <StateNumber>828</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="312" parent="286" name="hall_id">
+    <column id="313" parent="286" name="hall_id">
+      <DasType>bigint|0s</DasType>
       <Position>3</Position>
       <StateNumber>862</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="313" parent="286" name="director_id">
+    <column id="314" parent="286" name="director_id">
+      <DasType>bigint|0s</DasType>
       <Position>4</Position>
       <StateNumber>861</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="314" parent="286" name="duration">
+    <column id="315" parent="286" name="duration">
+      <DasType>interval|0s</DasType>
       <Position>5</Position>
       <StateNumber>2645</StateNumber>
-      <StoredType>interval|0s</StoredType>
       <TypeId>1186</TypeId>
     </column>
-    <column id="315" parent="286" name="duration_minutes">
+    <column id="316" parent="286" name="duration_minutes">
+      <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StateNumber>2673</StateNumber>
-      <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="316" parent="286" name="performance_hall_id_fkey">
+    <foreign-key id="317" parent="286" name="performance_hall_id_fkey">
       <ColNames>hall_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34169</ObjectId>
@@ -4596,7 +4602,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>33982</RefTableId>
     </foreign-key>
-    <foreign-key id="317" parent="286" name="performance_director_id_fkey">
+    <foreign-key id="318" parent="286" name="performance_director_id_fkey">
       <ColNames>director_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34160</ObjectId>
@@ -4604,7 +4610,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>34012</RefTableId>
     </foreign-key>
-    <index id="318" parent="286" name="performance_pkey">
+    <index id="319" parent="286" name="performance_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34144</ObjectId>
@@ -4613,73 +4619,132 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="319" parent="286" name="performance_pkey">
+    <key id="320" parent="286" name="performance_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34145</ObjectId>
       <Primary>1</Primary>
       <StateNumber>859</StateNumber>
       <UnderlyingIndexId>34144</UnderlyingIndexId>
     </key>
-    <column id="320" parent="287" name="performance_id">
+    <column id="321" parent="287" name="performance_id">
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>863</StateNumber>
-      <StoredType>bigint|0s</StoredType>
+      <StateNumber>5655</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="321" parent="287" name="actor_id">
+    <column id="322" parent="287" name="actor_id">
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>863</StateNumber>
-      <StoredType>bigint|0s</StoredType>
+      <StateNumber>5654</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="322" parent="287" name="fk6bpltxj3equwaoxy8rq8ypkj">
+    <foreign-key id="323" parent="287" name="performance_actor_performance_id_fkey">
       <ColNames>performance_id</ColNames>
-      <ObjectId>34311</ObjectId>
-      <StateNumber>879</StateNumber>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>50761</ObjectId>
+      <StateNumber>5655</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>34017</RefTableId>
     </foreign-key>
-    <foreign-key id="323" parent="287" name="fkbu54kcs8kjsbmtt2qpo4varsd">
+    <foreign-key id="324" parent="287" name="performance_actor_actor_id_fkey">
       <ColNames>actor_id</ColNames>
-      <ObjectId>34306</ObjectId>
-      <StateNumber>878</StateNumber>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>50750</ObjectId>
+      <StateNumber>5654</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>34032</RefTableId>
     </foreign-key>
-    <index id="324" parent="287" name="performance_actor_pkey">
-      <ColNames>actor_id
-performance_id</ColNames>
+    <index id="325" parent="287" name="performance_actor_pkey">
+      <ColNames>performance_id
+actor_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>34181</ObjectId>
+      <ObjectId>50759</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>863</StateNumber>
+      <StateNumber>5655</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="325" parent="287" name="performance_actor_pkey">
+    <key id="326" parent="287" name="performance_actor_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>34182</ObjectId>
+      <ObjectId>50760</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>863</StateNumber>
-      <UnderlyingIndexId>34181</UnderlyingIndexId>
+      <StateNumber>5655</StateNumber>
+      <UnderlyingIndexId>50759</UnderlyingIndexId>
     </key>
-    <column id="326" parent="288" name="performance_id">
+    <column id="327" parent="288" name="performance_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>5638</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="328" parent="288" name="showtimes_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>5638</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <foreign-key id="329" parent="288" name="fkcisvurwhh8a2mxa8o5lupukb5">
+      <ColNames>performance_id</ColNames>
+      <ObjectId>42553</ObjectId>
+      <StateNumber>5642</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>34017</RefTableId>
+    </foreign-key>
+    <foreign-key id="330" parent="288" name="fklldcc8ukpamnuyf7178ftw30q">
+      <ColNames>showtimes_id</ColNames>
+      <ObjectId>42548</ObjectId>
+      <StateNumber>5641</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>34052</RefTableId>
+    </foreign-key>
+    <index id="331" parent="288" name="performance_showtime_pkey">
+      <ColNames>performance_id
+showtimes_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>42544</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>5638</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="332" parent="288" name="uk_co0ib40mh0fs5w1lcelur4187">
+      <ColNames>showtimes_id</ColNames>
+      <ObjectId>42546</ObjectId>
+      <StateNumber>5640</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="333" parent="288" name="performance_showtime_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>42545</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>5638</StateNumber>
+      <UnderlyingIndexId>42544</UnderlyingIndexId>
+    </key>
+    <key id="334" parent="288" name="uk_co0ib40mh0fs5w1lcelur4187">
+      <ObjectId>42547</ObjectId>
+      <StateNumber>5640</StateNumber>
+      <UnderlyingIndexId>42546</UnderlyingIndexId>
+    </key>
+    <column id="335" parent="289" name="performance_id">
+      <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>830</StateNumber>
-      <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="327" parent="288" name="actor_id">
+    <column id="336" parent="289" name="actor_id">
+      <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>830</StateNumber>
-      <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="328" parent="288" name="performanceactor_performance_id_fkey">
+    <foreign-key id="337" parent="289" name="performanceactor_performance_id_fkey">
       <ColNames>performance_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34146</ObjectId>
@@ -4687,7 +4752,7 @@ performance_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>34017</RefTableId>
     </foreign-key>
-    <foreign-key id="329" parent="288" name="performanceactor_actor_id_fkey">
+    <foreign-key id="338" parent="289" name="performanceactor_actor_id_fkey">
       <ColNames>actor_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34099</ObjectId>
@@ -4695,7 +4760,7 @@ performance_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>34032</RefTableId>
     </foreign-key>
-    <index id="330" parent="288" name="performanceactor_pkey">
+    <index id="339" parent="289" name="performanceactor_pkey">
       <ColNames>performance_id
 actor_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
@@ -4705,45 +4770,45 @@ actor_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="331" parent="288" name="performanceactor_pkey">
+    <key id="340" parent="289" name="performanceactor_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34041</ObjectId>
       <Primary>1</Primary>
       <StateNumber>830</StateNumber>
       <UnderlyingIndexId>34040</UnderlyingIndexId>
     </key>
-    <column id="332" parent="289" name="id">
+    <column id="341" parent="290" name="id">
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>864</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="333" parent="289" name="hall_id">
+    <column id="342" parent="290" name="hall_id">
+      <DasType>bigint|0s</DasType>
       <Position>2</Position>
       <StateNumber>865</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="334" parent="289" name="seat_type_id">
+    <column id="343" parent="290" name="seat_type_id">
+      <DasType>bigint|0s</DasType>
       <Position>3</Position>
       <StateNumber>866</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="335" parent="289" name="row_number">
+    <column id="344" parent="290" name="row_number">
+      <DasType>integer|0s</DasType>
       <Position>4</Position>
       <StateNumber>826</StateNumber>
-      <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="336" parent="289" name="seat_number">
+    <column id="345" parent="290" name="seat_number">
+      <DasType>integer|0s</DasType>
       <Position>5</Position>
       <StateNumber>826</StateNumber>
-      <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="337" parent="289" name="seat_hall_id_fkey">
+    <foreign-key id="346" parent="290" name="seat_hall_id_fkey">
       <ColNames>hall_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34194</ObjectId>
@@ -4751,54 +4816,46 @@ actor_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>33982</RefTableId>
     </foreign-key>
-    <foreign-key id="338" parent="289" name="fkd4mx49q62bd2apkk2rfkl8l9w">
+    <foreign-key id="347" parent="290" name="fkd4mx49q62bd2apkk2rfkl8l9w">
       <ColNames>seat_type_id</ColNames>
       <ObjectId>34316</ObjectId>
       <StateNumber>880</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>34213</RefTableId>
     </foreign-key>
-    <foreign-key id="339" parent="289" name="seat_seat_type_id_fkey">
-      <ColNames>seat_type_id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>34203</ObjectId>
-      <StateNumber>866</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>33992</RefTableId>
-    </foreign-key>
-    <index id="340" parent="289" name="seat_pkey">
+    <index id="348" parent="290" name="seat_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34183</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>866</StateNumber>
+      <StateNumber>5825</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="341" parent="289" name="seat_pkey">
+    <key id="349" parent="290" name="seat_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34184</ObjectId>
       <Primary>1</Primary>
       <StateNumber>864</StateNumber>
       <UnderlyingIndexId>34183</UnderlyingIndexId>
     </key>
-    <column id="342" parent="290" name="id">
+    <column id="350" parent="291" name="id">
+      <DasType>bigint|0s</DasType>
       <DefaultExpression>nextval(&apos;seat_type_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>867</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <SequenceId>34212</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="343" parent="290" name="name">
+    <column id="351" parent="291" name="name">
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>867</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="344" parent="290" name="seat_type_pkey">
+    <index id="352" parent="291" name="seat_type_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34217</ObjectId>
@@ -4807,62 +4864,33 @@ actor_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="345" parent="290" name="seat_type_pkey">
+    <key id="353" parent="291" name="seat_type_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34218</ObjectId>
       <Primary>1</Primary>
       <StateNumber>867</StateNumber>
       <UnderlyingIndexId>34217</UnderlyingIndexId>
     </key>
-    <column id="346" parent="291" name="id">
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>825</StateNumber>
-      <StoredType>integer|0s</StoredType>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="347" parent="291" name="name">
-      <Position>2</Position>
-      <StateNumber>825</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <index id="348" parent="291" name="seattype_pkey">
-      <ColNames>id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>33995</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>825</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="349" parent="291" name="seattype_pkey">
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>33996</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>825</StateNumber>
-      <UnderlyingIndexId>33995</UnderlyingIndexId>
-    </key>
-    <column id="350" parent="292" name="id">
+    <column id="354" parent="292" name="id">
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>868</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="351" parent="292" name="performance_id">
+    <column id="355" parent="292" name="performance_id">
+      <DasType>bigint|0s</DasType>
       <Position>2</Position>
       <StateNumber>870</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="352" parent="292" name="show_datetime">
+    <column id="356" parent="292" name="show_datetime">
+      <DasType>date|0s</DasType>
       <Position>3</Position>
       <StateNumber>869</StateNumber>
-      <StoredType>date|0s</StoredType>
       <TypeId>1082</TypeId>
     </column>
-    <foreign-key id="353" parent="292" name="showtime_performance_id_fkey">
+    <foreign-key id="357" parent="292" name="showtime_performance_id_fkey">
       <ColNames>performance_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34234</ObjectId>
@@ -4870,7 +4898,7 @@ actor_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>34017</RefTableId>
     </foreign-key>
-    <index id="354" parent="292" name="showtime_pkey">
+    <index id="358" parent="292" name="showtime_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34219</ObjectId>
@@ -4879,39 +4907,39 @@ actor_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="355" parent="292" name="showtime_pkey">
+    <key id="359" parent="292" name="showtime_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34220</ObjectId>
       <Primary>1</Primary>
       <StateNumber>868</StateNumber>
       <UnderlyingIndexId>34219</UnderlyingIndexId>
     </key>
-    <column id="356" parent="293" name="id">
+    <column id="360" parent="293" name="id">
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>871</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="357" parent="293" name="name">
+    <column id="361" parent="293" name="name">
+      <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
       <StateNumber>823</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="358" parent="293" name="address">
+    <column id="362" parent="293" name="address">
+      <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
       <StateNumber>823</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="359" parent="293" name="info">
+    <column id="363" parent="293" name="info">
+      <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
       <StateNumber>823</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="360" parent="293" name="theater_pkey">
+    <index id="364" parent="293" name="theater_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34243</ObjectId>
@@ -4920,51 +4948,57 @@ actor_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="361" parent="293" name="theater_pkey">
+    <key id="365" parent="293" name="theater_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34244</ObjectId>
       <Primary>1</Primary>
       <StateNumber>871</StateNumber>
       <UnderlyingIndexId>34243</UnderlyingIndexId>
     </key>
-    <column id="362" parent="294" name="id">
+    <column id="366" parent="294" name="id">
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>872</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="363" parent="294" name="showtime_id">
+    <column id="367" parent="294" name="showtime_id">
+      <DasType>bigint|0s</DasType>
       <Position>2</Position>
       <StateNumber>874</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="364" parent="294" name="seat_id">
+    <column id="368" parent="294" name="seat_id">
+      <DasType>bigint|0s</DasType>
       <Position>3</Position>
       <StateNumber>873</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="365" parent="294" name="price">
+    <column id="369" parent="294" name="price">
+      <DasType>integer|0s</DasType>
       <Position>4</Position>
       <StateNumber>833</StateNumber>
-      <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="366" parent="294" name="is_sold">
+    <column id="370" parent="294" name="is_sold">
+      <DasType>boolean|0s</DasType>
       <Position>5</Position>
       <StateNumber>833</StateNumber>
-      <StoredType>boolean|0s</StoredType>
       <TypeId>16</TypeId>
     </column>
-    <column id="367" parent="294" name="user_id">
+    <column id="371" parent="294" name="user_id">
+      <DasType>bigint|0s</DasType>
       <Position>6</Position>
       <StateNumber>875</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="368" parent="294" name="ticket_showtime_id_fkey">
+    <column id="372" parent="294" name="purchase_date">
+      <DasType>timestamp(6)|0s</DasType>
+      <Position>7</Position>
+      <StateNumber>5855</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <foreign-key id="373" parent="294" name="ticket_showtime_id_fkey">
       <ColNames>showtime_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34271</ObjectId>
@@ -4972,7 +5006,7 @@ actor_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>34052</RefTableId>
     </foreign-key>
-    <foreign-key id="369" parent="294" name="ticket_seat_id_fkey">
+    <foreign-key id="374" parent="294" name="ticket_seat_id_fkey">
       <ColNames>seat_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34262</ObjectId>
@@ -4980,7 +5014,7 @@ actor_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>33997</RefTableId>
     </foreign-key>
-    <foreign-key id="370" parent="294" name="ticket_user_id_fkey">
+    <foreign-key id="375" parent="294" name="ticket_user_id_fkey">
       <ColNames>user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34291</ObjectId>
@@ -4988,36 +5022,36 @@ actor_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>34062</RefTableId>
     </foreign-key>
-    <index id="371" parent="294" name="ticket_pkey">
+    <index id="376" parent="294" name="ticket_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34256</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>875</StateNumber>
+      <StateNumber>5825</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="372" parent="294" name="ticket_pkey">
+    <key id="377" parent="294" name="ticket_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34257</ObjectId>
       <Primary>1</Primary>
       <StateNumber>872</StateNumber>
       <UnderlyingIndexId>34256</UnderlyingIndexId>
     </key>
-    <column id="373" parent="295" name="id">
+    <column id="378" parent="295" name="id">
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>876</StateNumber>
-      <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="374" parent="295" name="user_info">
+    <column id="379" parent="295" name="user_info">
+      <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
       <StateNumber>877</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="375" parent="295" name="users_pkey">
+    <index id="380" parent="295" name="users_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34289</ObjectId>
@@ -5026,7 +5060,7 @@ actor_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="376" parent="295" name="users_pkey">
+    <key id="381" parent="295" name="users_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>34290</ObjectId>
       <Primary>1</Primary>

@@ -13,11 +13,7 @@ public class SeatType implements CommonEntity<Long> {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private Integer price; // Добавьте это поле
-
-    public SeatType(String name, Integer price) {
+    public SeatType(String name) {
         this.name = name;
-        this.price = price;
     }
 }

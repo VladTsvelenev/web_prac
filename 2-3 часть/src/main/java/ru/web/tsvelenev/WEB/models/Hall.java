@@ -31,7 +31,6 @@ public class Hall implements CommonEntity<Long> {
     @Column(name = "seat_count")
     private Integer seatCount;
 
-    // Добавляем связь с местами в зале
     @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Seat> seats;

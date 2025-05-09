@@ -1,9 +1,6 @@
 package ru.web.tsvelenev.WEB.DAO;
 
-import ru.web.tsvelenev.WEB.models.Performance;
-import ru.web.tsvelenev.WEB.models.SeatType;
-import ru.web.tsvelenev.WEB.models.Ticket;
-import ru.web.tsvelenev.WEB.models.Users;
+import ru.web.tsvelenev.WEB.models.*;
 
 import java.util.List;
 
@@ -20,4 +17,7 @@ public interface TicketDAO {
     List<Ticket> findAvailableByPerformanceId(Long performanceId);
     List<Ticket> findAvailableTickets(Long performanceId);
     public void deleteByPerformance(Performance performance);
+    public List<Ticket> findByShowTimeAndIsSoldFalse(ShowTime showTime);
+    public List<Ticket> findPurchasedTicketsByUserWithDetails(Users user);
+    public Ticket getById(Long id);
 }

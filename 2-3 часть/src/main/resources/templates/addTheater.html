@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style>
         .form-container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 50px auto;
             padding: 20px;
             background-color: #f8f9fa;
@@ -25,6 +25,25 @@
         .logo {
             height: 120px;
             margin: 5px;
+        }
+        .seat-type-group {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .hall-card {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+        }
+        .hall-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
         }
     </style>
     <title>Добавить Театр - Театральная система</title>
@@ -69,10 +88,45 @@
             <div class="form-group">
                 <label>Залы театра</label>
                 <div id="halls-container">
-                    <div class="hall-group">
+                    <div class="hall-card">
+                        <div class="hall-header">
+                            <h5>Зал #1</h5>
+                            <button type="button" class="btn btn-sm btn-danger" onclick="removeHall(this)">Удалить</button>
+                        </div>
                         <input type="text" class="form-control mb-2" name="hallsName" placeholder="Название зала" required>
-                        <input type="number" class="form-control mb-2" name="hallsSeatCount" placeholder="Количество мест" required>
-                        <hr>
+
+                        <div class="seat-types-container">
+                            <div class="seat-type-group">
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <select class="form-control mb-2" name="seatTypeId" required>
+                                            <option value="">Выберите тип места</option>
+                                            <option th:each="type : ${seatTypes}"
+                                                    th:value="${type.id}"
+                                                    th:text="${type.name}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="number" class="form-control mb-2" name="seatTypeCount"
+                                               placeholder="Количество" min="1" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="removeSeatType(this)">×</button>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <input type="number" class="form-control mb-2" name="rows"
+                                               placeholder="Количество рядов" min="1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="number" class="form-control mb-2" name="seatsPerRow"
+                                               placeholder="Мест в ряду" min="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="addSeatType(this)">Добавить тип мест</button>
                     </div>
                 </div>
                 <button type="button" class="btn btn-secondary mt-2" onclick="addHall()">Добавить ещё зал</button>
@@ -84,18 +138,123 @@
 </div>
 
 <script>
-    let hallIndex = 1;
+    document.addEventListener('DOMContentLoaded', function() {
+        // Инициализация после загрузки страницы
+        console.log('Форма добавления театра готова');
+    });
+
+    let hallCounter = 1;
+
+    function getSeatTypesOptions() {
+        // Получаем все элементы option из первого select'а, который был сгенерирован сервером
+        const firstSelect = document.querySelector('select[name="seatTypeId"]');
+        if (firstSelect) {
+            const options = Array.from(firstSelect.querySelectorAll('option[value]'))
+                .map(option => `<option value="${option.value}">${option.textContent}</option>`)
+                .join('');
+            return `<option value="">Выберите тип места</option>${options}`;
+        }
+        return '<option value="">Выберите тип места</option>';
+    }
+
     function addHall() {
-        const container = document.getElementById('halls-container');
-        const newHall = document.createElement('div');
-        newHall.className = "hall-group";
-        newHall.innerHTML = `
-            <input type="text" class="form-control mb-2" name="hallsName" placeholder="Название зала" required>
-            <input type="number" class="form-control mb-2" name="hallsSeatCount" placeholder="Количество мест" required>
-            <hr>
+        try {
+            hallCounter++;
+            const container = document.getElementById('halls-container');
+            const newHall = document.createElement('div');
+            newHall.className = "hall-card";
+            newHall.innerHTML = `
+                <div class="hall-header">
+                    <h5>Зал #${hallCounter}</h5>
+                    <button type="button" class="btn btn-sm btn-danger" onclick="removeHall(this)">Удалить</button>
+                </div>
+                <input type="text" class="form-control mb-2" name="hallsName" placeholder="Название зала" required>
+                <div class="seat-types-container">
+                    ${createSeatTypeGroup()}
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="addSeatType(this)">Добавить тип мест</button>
+            `;
+            container.appendChild(newHall);
+            console.log('Добавлен новый зал');
+        } catch (e) {
+            console.error('Ошибка при добавлении зала:', e);
+        }
+    }
+
+    function createSeatTypeGroup() {
+        return `
+            <div class="seat-type-group">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <select class="form-control mb-2" name="seatTypeId" required>
+                            ${getSeatTypesOptions()}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" class="form-control mb-2" name="seatTypeCount"
+                               placeholder="Количество" min="1" required>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-sm btn-danger" onclick="removeSeatType(this)">×</button>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <input type="number" class="form-control mb-2" name="rows"
+                               placeholder="Количество рядов" min="1">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control mb-2" name="seatsPerRow"
+                               placeholder="Мест в ряду" min="1">
+                    </div>
+                </div>
+            </div>
         `;
-        container.appendChild(newHall);
-        hallIndex++;
+    }
+
+    function addSeatType(button) {
+        try {
+            const container = button.closest('.hall-card').querySelector('.seat-types-container');
+            container.insertAdjacentHTML('beforeend', createSeatTypeGroup());
+            console.log('Добавлен новый тип мест');
+        } catch (e) {
+            console.error('Ошибка при добавлении типа мест:', e);
+        }
+    }
+
+    function removeSeatType(button) {
+        try {
+            const seatTypeGroup = button.closest('.seat-type-group');
+            if (document.querySelectorAll('.seat-type-group').length > 1) {
+                seatTypeGroup.remove();
+                console.log('Тип мест удален');
+            } else {
+                alert('Должен быть хотя бы один тип мест');
+            }
+        } catch (e) {
+            console.error('Ошибка при удалении типа мест:', e);
+        }
+    }
+
+    function removeHall(button) {
+        try {
+            const halls = document.querySelectorAll('.hall-card');
+            if (halls.length > 1) {
+                const hallCard = button.closest('.hall-card');
+                hallCard.remove();
+
+                // Обновляем нумерацию залов
+                document.querySelectorAll('.hall-card').forEach((hall, index) => {
+                    hall.querySelector('h5').textContent = `Зал #${index + 1}`;
+                });
+                hallCounter = halls.length - 1;
+                console.log('Зал удален');
+            } else {
+                alert('Должен быть хотя бы один зал');
+            }
+        } catch (e) {
+            console.error('Ошибка при удалении зала:', e);
+        }
     }
 </script>
 

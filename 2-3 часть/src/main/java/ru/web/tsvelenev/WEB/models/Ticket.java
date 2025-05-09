@@ -7,26 +7,29 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ticket")
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class Ticket implements CommonEntity<Long> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Связь с показом спектакля (ShowTime), а не с Performance напрямую
     @ManyToOne
-    @JoinColumn(name = "performance_id", nullable = false)
-    private Performance performance;
+    @JoinColumn(name = "showtime_id", nullable = false)
+    private ShowTime showTime;
 
+    // Связь с пользователем (покупателем билета)
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
 
+    // Связь с местом в зале
     @ManyToOne
-    @JoinColumn(name = "seat_type_id", nullable = false)
-    private SeatType seatType;
-
-    @Column(nullable = false)
-    private Integer seatNumber;
+    @JoinColumn(name = "seat_id", nullable = false)
+    private Seat seat;
 
     @Column(nullable = false)
     private Integer price;
@@ -37,10 +40,10 @@ public class Ticket implements CommonEntity<Long> {
     @Column(name = "purchase_date")
     private LocalDateTime purchaseDate;
 
-    public Ticket(Performance performance, SeatType seatType, Integer seatNumber, Integer price) {
-        this.performance = performance;
-        this.seatType = seatType;
-        this.seatNumber = seatNumber;
+    // Конструктор для создания нового билета
+    public Ticket(ShowTime showTime, Seat seat, Integer price) {
+        this.showTime = showTime;
+        this.seat = seat;
         this.price = price;
     }
 }

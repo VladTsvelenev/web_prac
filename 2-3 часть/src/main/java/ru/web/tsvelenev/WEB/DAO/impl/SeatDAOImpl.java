@@ -27,12 +27,11 @@ public class SeatDAOImpl extends CommonDAOImpl<Seat, Long> implements SeatDAO {
     @Transactional(readOnly = true)
     public List<Seat> getByHallId(Long hallId) {
         Session session = sessionFactory.getCurrentSession();
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Seat> cq = cb.createQuery(Seat.class);
-        Root<Seat> root = cq.from(Seat.class);
-
-        cq.select(root).where(cb.equal(root.get("hall").get("id"), hallId));
-        return session.createQuery(cq).getResultList();
+        return session.createQuery(
+                        "SELECT s FROM Seat s JOIN FETCH s.seatType WHERE s.hall.id = :hallId",
+                        Seat.class)
+                .setParameter("hallId", hallId)
+                .getResultList();
     }
 
     @Override

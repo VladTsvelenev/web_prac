@@ -13,6 +13,39 @@
                 border-radius: 10px;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             }
+
+            .badge {
+                font-size: 1em;
+                padding: 0.5em;
+                display: inline-flex;
+                align-items: center;
+            }
+            .close {
+                font-size: 1.5em;
+                line-height: 1;
+            }
+
+            .seat-price-block {
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                padding: 5px;
+            }
+
+            .remove-btn {
+                cursor: pointer;
+            }
+
+            .seat-type-price {
+                border: 1px solid #dee2e6;
+                border-radius: 0.25rem;
+                padding: 0.375rem 0.75rem;
+            }
+
+            .input-group-text {
+                min-width: 150px;
+                justify-content: center;
+            }
+
             .form-header { text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 20px; }
             .form-group label { font-weight: 600; }
             .logo { height: 120px; margin: 5px; }
@@ -42,55 +75,11 @@
         <div class="form-container">
             <h2 class="form-header">Добавить новый спектакль</h2>
 
-            <form action="/performances/add" method="post">
+            <form action="/performances/add" method="post" onsubmit="return prepareFormData()">
+                <!-- Основные поля спектакля -->
                 <div class="form-group">
                     <label for="title">Название спектакля</label>
                     <input type="text" class="form-control" id="title" name="title" required>
-                </div>
-
-                <!-- Выбор театра -->
-                <div class="form-group">
-                    <label for="theater">Театр</label>
-                    <select class="form-control" id="theater" name="theaterId" required>
-                        <option value="">Выберите театр</option>
-                        <option th:each="theater : ${theaters}"
-                                th:value="${theater.id}"
-                                th:text="${theater.name}">
-                        </option>
-                    </select>
-                </div>
-
-                <!-- Выбор зала -->
-                <div class="form-group">
-                    <label for="hall">Зал</label>
-                    <select class="form-control" id="hall" name="hallId" required>
-                        <option value="">Выберите зал</option>
-                        <option th:each="hall : ${halls}"
-                                th:value="${hall.id}"
-                                th:data-theater-id="${hall.theater.id}"
-                                th:text="${hall.name}">
-                        </option>
-                    </select>
-                </div>
-
-                <!-- Выбор режиссера -->
-                <select class="form-control" id="director" name="directorId" required>
-                    <option value="">Выберите режиссёра</option>
-                    <option th:each="director : ${directors}"
-                            th:value="${director.id}"
-                            th:text="${director.name}">
-                    </option>
-                </select>
-
-                <!-- Выбор актеров -->
-                <div class="form-group">
-                    <label for="actors">Актеры (можно выбрать несколько)</label>
-                    <select class="form-control select2" id="actors" name="actorIds" multiple="multiple">
-                        <option th:each="actor : ${actors}"
-                                th:value="${actor.id}"
-                                th:text="${actor.name}">
-                        </option>
-                    </select>
                 </div>
 
                 <div class="form-group">
@@ -98,27 +87,76 @@
                     <input type="number" class="form-control" id="duration" name="durationMinutes" required>
                 </div>
 
-                <!-- Блок для ввода цен по типу мест -->
-                <h5 class="mt-4">Настройка цен на билеты</h5>
-                <div th:each="seatType : ${seatTypes}" class="form-group">
-                    <label th:for="'price_' + ${seatType.id}" th:text="'Цена для типа: ' + ${seatType.name}"></label>
-                    <input type="number" class="form-control" th:id="'price_' + ${seatType.id}"
-                           th:name="'prices[' + ${seatType.id} + ']'" min="0" required>
+                <!-- Выбор театра и зала -->
+                <div class="form-group">
+                    <label for="theater">Театр</label>
+                    <select class="form-control" id="theater" name="theaterId" required>
+                        <option value="">Выберите театр</option>
+                        <option th:each="theater : ${theaters}"
+                                th:value="${theater.id}"
+                                th:text="${theater.name}"></option>
+                    </select>
                 </div>
 
-                <button type="submit" class="btn btn-primary mt-4">Добавить спектакль</button>
+                <div class="form-group">
+                    <label for="hall">Зал</label>
+                    <select class="form-control" id="hall" name="hallId" required>
+                        <option value="">Выберите зал</option>
+                        <option th:each="hall : ${halls}"
+                                th:value="${hall.id}"
+                                th:data-theater-id="${hall.theater.id}"
+                                th:text="${hall.name}"></option>
+                    </select>
+                </div>
+
+                <!-- Выбор режиссера -->
+                <div class="form-group">
+                    <label for="director">Режиссер</label>
+                    <select class="form-control" id="director" name="directorId" required>
+                        <option value="">Выберите режиссёра</option>
+                        <option th:each="director : ${directors}"
+                                th:value="${director.id}"
+                                th:text="${director.name}"></option>
+                    </select>
+                </div>
+
+                <!-- Выбор актеров -->
+                <div class="form-group">
+                    <label for="actors">Актеры</label>
+                    <select class="form-control select2" id="actors" name="actorIds" multiple="multiple">
+                        <option th:each="actor : ${actors}"
+                                th:value="${actor.id}"
+                                th:text="${actor.name}"></option>
+                    </select>
+                </div>
+
+                <!-- Даты показов -->
+                <div class="form-group">
+                    <label>Даты показов</label>
+                    <div id="showTimesContainer">
+                        <div class="input-group mb-2">
+                            <input type="datetime-local" class="form-control" name="showTimes" required>
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary add-showtime">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Цены билетов для типов мест в зале -->
+                <div class="form-group">
+                    <label>Цены для типов мест в зале:</label>
+                    <div id="seatPricesContainer" class="mt-3">
+                        <!-- Типы мест будут загружаться динамически -->
+                        <div class="alert alert-info" id="noSeatTypesMessage">
+                            Пожалуйста, выберите зал для отображения типов мест
+                        </div>
+                    </div>
+                    <input type="hidden" name="seatTypePricesJson" id="seatTypePricesJson">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Добавить спектакль</button>
             </form>
-        </div>
-    </div>
-
-    <div class="mt-4">
-        <h5>Генерация билетов</h5>
-        <p>После создания спектакля будут автоматически сгенерированы билеты для всех мест в зале.</p>
-
-        <div th:each="seatType : ${seatTypes}" class="form-group">
-            <label th:for="'price_' + ${seatType.id}" th:text="'Цена для ' + ${seatType.name} + ' мест:'"></label>
-            <input type="number" class="form-control" th:id="'price_' + ${seatType.id}"
-                   th:name="'prices[' + ${seatType.id} + ']'" min="0" required>
         </div>
     </div>
 
@@ -128,33 +166,104 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/i18n/ru.js"></script>
 
     <script>
-        // Инициализация Select2 для выбора режиссера и актеров
         $(document).ready(function() {
+            // Инициализация Select2
             $('.select2').select2({
                 language: "ru",
                 placeholder: "Выберите значение",
                 allowClear: true
             });
-        });
 
-        // Динамическая фильтрация залов по выбранному театру
-        document.getElementById('theater').addEventListener('change', function () {
-            let theaterId = this.value;
-            let hallSelect = document.getElementById('hall');
-            let hallOptions = hallSelect.querySelectorAll('option');
+            // Динамическая фильтрация залов по театру
+            $('#theater').change(function() {
+                let theaterId = $(this).val();
+                $('#hall option').each(function() {
+                    if ($(this).val() === "") {
+                        $(this).show();
+                    } else {
+                        $(this).toggle($(this).data('theater-id') == theaterId);
+                    }
+                });
+                $('#hall').val('').trigger('change');
+            });
 
-            hallOptions.forEach(function (option) {
-                if (option.value === "") {
-                    option.hidden = false; // опция "Выберите зал"
-                    option.selected = true;
-                } else if (option.getAttribute('data-theater-id') === theaterId) {
-                    option.hidden = false;
+            // При изменении выбранного зала загружаем типы мест
+            $('#hall').change(function() {
+                const hallId = $(this).val();
+                if (hallId) {
+                    fetchSeatTypesForHall(hallId);
                 } else {
-                    option.hidden = true;
+                    $('#seatPricesContainer').empty();
                 }
             });
-        });
-    </script>
 
+            // Обработка добавления дат показов
+            $(document).on('click', '.add-showtime', function() {
+                $('#showTimesContainer').append(`
+                    <div class="input-group mb-2">
+                        <input type="datetime-local" class="form-control" name="showTimes" required>
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-outline-danger remove-showtime">-</button>
+                        </div>
+                    </div>
+                `);
+            });
+
+            // Удаление полей дат показов
+            $(document).on('click', '.remove-showtime', function() {
+                $(this).closest('.input-group').remove();
+            });
+        });
+
+        function fetchSeatTypesForHall(hallId) {
+            $.ajax({
+                url: '/api/halls/' + hallId + '/seat-types',
+                method: 'GET',
+                success: function(seatTypes) {
+                    updateSeatPriceInputs(seatTypes);
+                },
+                error: function(error) {
+                    console.error('Error fetching seat types:', error);
+                    $('#seatPricesContainer').html('<div class="alert alert-danger">Не удалось загрузить типы мест</div>');
+                }
+            });
+        }
+
+        function updateSeatPriceInputs(seatTypes) {
+            const container = $('#seatPricesContainer');
+            container.empty();
+
+            if (seatTypes.length === 0) {
+                container.html('<div class="alert alert-warning">В этом зале нет мест</div>');
+                return;
+            }
+
+            seatTypes.forEach(seatType => {
+                container.append(`
+                    <div class="form-group">
+                        <label for="seatType_${seatType.id}">${seatType.name}</label>
+                        <input type="number" class="form-control seat-price-input"
+                               id="seatType_${seatType.id}"
+                               name="seatPrices[${seatType.id}]"
+                               min="0" required>
+                    </div>
+                `);
+            });
+        }
+
+        function prepareFormData() {
+            // Проверяем, что все цены заполнены
+            const allFilled = $('.seat-price-input').toArray().every(input => {
+                return $(input).val() && $(input).val() > 0;
+            });
+
+            if (!allFilled) {
+                alert('Пожалуйста, укажите цены для всех типов мест в зале');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
     </body>
     </html>

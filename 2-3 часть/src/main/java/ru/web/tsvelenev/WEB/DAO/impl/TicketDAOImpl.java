@@ -43,8 +43,39 @@ public class TicketDAOImpl extends CommonDAOImpl<Ticket, Long> implements Ticket
         CriteriaQuery<Ticket> cq = cb.createQuery(Ticket.class);
         Root<Ticket> root = cq.from(Ticket.class);
 
+        // Добавляем JOIN FETCH для связанных сущностей
+        Join<Ticket, ShowTime> showTimeJoin = root.join("showTime", JoinType.INNER);
+        Join<ShowTime, Performance> performanceJoin = showTimeJoin.join("performance", JoinType.INNER);
+        performanceJoin.join("hall", JoinType.INNER).join("theater", JoinType.INNER);
+        root.join("seat", JoinType.INNER).join("seatType", JoinType.INNER);
+
         cq.select(root)
                 .where(cb.equal(root.get("user"), user))
+                .orderBy(cb.desc(root.get("purchaseDate")));
+
+        return session.createQuery(cq).getResultList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> findPurchasedTicketsByUserWithDetails(Users user) {
+        Session session = sessionFactory.getCurrentSession();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Ticket> cq = cb.createQuery(Ticket.class);
+        Root<Ticket> root = cq.from(Ticket.class);
+
+        // Полная загрузка всех связанных сущностей для истории покупок
+        Fetch<Ticket, ShowTime> showTimeFetch = root.fetch("showTime", JoinType.INNER);
+        Fetch<ShowTime, Performance> performanceFetch = showTimeFetch.fetch("performance", JoinType.INNER);
+        performanceFetch.fetch("hall", JoinType.INNER).fetch("theater", JoinType.INNER);
+        performanceFetch.fetch("director", JoinType.LEFT);
+        root.fetch("seat", JoinType.INNER).fetch("seatType", JoinType.INNER);
+
+        cq.select(root)
+                .where(cb.and(
+                        cb.equal(root.get("user"), user),
+                        cb.equal(root.get("isSold"), true)
+                ))
                 .orderBy(cb.desc(root.get("purchaseDate")));
 
         return session.createQuery(cq).getResultList();
@@ -171,5 +202,22 @@ public class TicketDAOImpl extends CommonDAOImpl<Ticket, Long> implements Ticket
         cd.where(cb.equal(root.get("performance"), performance));
 
         session.createMutationQuery(cd).executeUpdate();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> findByShowTimeAndIsSoldFalse(ShowTime showTime) {
+        Session session = sessionFactory.getCurrentSession();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Ticket> cq = cb.createQuery(Ticket.class);
+        Root<Ticket> root = cq.from(Ticket.class);
+
+        cq.select(root)
+                .where(cb.and(
+                        cb.equal(root.get("showTime"), showTime),
+                        cb.equal(root.get("isSold"), false)
+                ));
+
+        return session.createQuery(cq).getResultList();
     }
 }

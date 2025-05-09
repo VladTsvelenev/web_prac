@@ -45,6 +45,7 @@ public abstract class CommonDAOImpl<T extends CommonEntity<ID>, ID extends Seria
     public T save(T entity) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(entity);
+        session.flush();
         return entity;
     }
 
